@@ -1,9 +1,16 @@
-import OpenAI from "openai";
-const client = new OpenAI();
 
-const response = await client.responses.create({
-  model: "gpt-5.2",
-  input: "Write a short bedtime story about a unicorn.",
-});
 
-console.log(response.output_text);
+
+function sendFetchRequest() {
+
+fetch('https://quoteslate.vercel.app/api/quotes/random')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch((error) => console.error("Fetch error:", error));
+}
+
+
+
+
+
+document.getElementById("fetch").addEventListener("click", sendFetchRequest);
