@@ -1,35 +1,54 @@
 
 
+const skillsSelect = document.getElementById("selectNumber");
+
 
 function sendFetchRequest() {
 
-fetch('https://quoteslate.vercel.app/api/quotes/random')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch((error) => console.error("Fetch error:", error));
+// fetch('https://quoteslate.vercel.app/api/quotes/random')
+//   .then(response => response.json())
+//   .then(data => console.log(data))
+//   .catch((error) => console.error("Fetch error:", error));
+  const searchOutput = skillsSelect.value;
+  const selectedText = skillsSelect.options[skillsSelect.selectedIndex].text;
+
+  console.log('Selected category:', selectedText, searchOutput);
+
 }
 
 function sendCategoryRequest() {
 
 fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
   .then(response => response.json())
-  .then(data => 
-    console.log('categories:',data),
-    // options.forEach((element) => 
-    //   {
-    //    // console.log(element);
-       
-    //   }
-    
-
-    //   options.length = 0,
-    //   options.push(...data.categories.map(category => category.strCategory))
-
-    
-    
-    ); //clear existing options
+    .then(data => {
+      console.log('categories:', data);
+      updateDropdown(data); // update the dropdown menu
+    })
     
  
+}
+
+function updateDropdown(data) {
+
+    const select = document.getElementById('selectNumber'); // Get the element
+    select.innerHTML = ''; //clear existing options
+    
+    const categories = document.createElement('Option') // get the DOM element
+    categories.value = ''; //set to empty
+    categories.disabled = true; //disable it
+    categories.selected = true; //set it to selected
+    categories.textContent = 'Food Categories'; //call it food categories
+    select.appendChild(categories); //append it to the dropdown
+
+    //---- Loop and add the categories from the API
+    data.categories.forEach(category => {
+    const newCategories = document.createElement('Option') // get the name
+    newCategories.value = category.strCategory; //set the value
+    newCategories.textContent = category.strCategory;
+    select.appendChild(newCategories);
+
+    })
+
 }
 
 
@@ -42,8 +61,10 @@ if (fetchBtn) fetchBtn.addEventListener("click", sendCategoryRequest);
 
 var searchTerm = document.getElementById("meal-search");
 var searchButton = document.getElementById("search-btn");
+var recipeButton = document.getElementById("search-btn-food");
 
 
+recipeButton.addEventListener("click", sendFetchRequest);
 searchButton.addEventListener("click", onClickSearhButton);
 
 
