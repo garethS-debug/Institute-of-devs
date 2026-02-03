@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,9 +16,50 @@
     <p>Open the Console to see the results</p>
     <div class="request-types">
         <button id="fetch">Fetch</button>
+        <button id="fetch">Fetch</button>
     </div>
 
     <script type="module" src="./test.js"></script>
 </body>
 
+</html> -->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Recipe Search</title>  
+</head>
+<body>
+  <header>
+    <input id="meal-search" type="search" placeholder="Search recipes..." aria-label="Search recipes">
+    <button id="search-btn">Search</button>
+  </header>
+
+  <main>
+    <div id="results" class="meals"></div>
+            <div class="widget">
+                <h2>Recent Searches</h2>
+                <ul id="searches">
+                  <!-- child elements added here -->
+                    <li>No recent searches</li>
+                </ul>
+    </div>
+
+
+    <div id="meal-details" class="meal-details">
+      <!-- meal details will be displayed here -->
+       <select id="selectNumber">
+    <option>Choose a number</option>
+</select>
+    </div>
+
+  </main>
+
+  <script src="test.js"></script>
+</body>
 </html>
+
+
+    
