@@ -12,6 +12,11 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./styles.css">
+<!-- Custom JS -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <script src="./test.js"></script>
 </head>
 
 <body>
@@ -30,7 +35,8 @@
                             Dropdown button
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" id = "dropdown"href="testPage.html">Action</a></li>
+                            <!-- <button class="dropdown-item" type="button" id = "test" href="testPage.html" >Adventure</button> -->
                             <li><a class="dropdown-item" href="#">Another action</a></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
@@ -42,7 +48,7 @@
                             aria-expanded="false">
                             Dropdown button
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" id="list1">
                             <li><a class="dropdown-item" href="#">Action</a></li>
                             <li><a class="dropdown-item" href="#">Another action</a></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>

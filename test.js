@@ -1,8 +1,24 @@
 
+//-- On page Load
 
-const skillsSelect = document.getElementById("selectNumber");
+window.onload = function() {
+  console.log("Page loaded, sending category request...");
+  sendCategoryRequest();
+};
+
+
+
+//-- reference to button
+
+//const skillsSelect = document.getElementById("selectNumber");
+
+//Lists to hold the API data
 var recipeList = [];
 var categoriesList = [];
+
+//This holds our category selection
+var chosenCat = null; // Setting a defult value so that it starts empty. We will be adding in the variable later
+
 
 function sendFetchRequest() {
 
@@ -29,6 +45,10 @@ fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${searchOutput}`)
 
 }
 
+//jQuery
+// $(function(){
+//   $('#test').text('Testing');
+// });
 
          $(function() {
             // var availableTutorials  =  [
@@ -45,10 +65,6 @@ fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${searchOutput}`)
             });
          });
 
-window.onload = function() {
-  console.log("Page loaded, sending category request...");
-  sendCategoryRequest();
-};
 
 function sendCategoryRequest() {
 
@@ -61,6 +77,11 @@ fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
       //Store the category variables
        data.categories.forEach(category => {
         categoriesList.push(category.strCategory);
+        console.log('categoriesList:', category.strCategory);
+        updateDropdown(category.strCategory, 'list1'); // update the dropdown menu
+
+          // const el = document.getElementById("test");
+          // el.textContent = "testy"; 
         // console.log('Category added:', category.strCategory);
       })
 
@@ -70,45 +91,55 @@ fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
  
 }
 
-function updateDropdown(data) {
+//This is the function to update the dropdown menu
+function updateDropdown(category, menuId) {
+  console.log('Updating dropdown menu...');
 
-    const select = document.getElementById('selectNumber'); // Get the element
-    select.innerHTML = ''; //clear existing options
-    
-    const categories = document.createElement('Option') // get the DOM element
-    categories.value = ''; //set to empty
-    categories.disabled = true; //disable it
-    categories.selected = true; //set it to selected
-    categories.textContent = 'Food Categories'; //call it food categories
-    select.appendChild(categories); //append it to the dropdown
+  //We are adding in security checks just in case the data isnt passed in to the function 
+  if (menuId == null) { console.log('menuId is null, setting default value.'); menuId = 'list1'; return;}
+  if (category == null) { console.log('category is null, exiting function.'); return;}
 
-    //---- Loop and add the categories from the API
-    data.categories.forEach(category => {
-    const newCategories = document.createElement('Option') // get the name
-    newCategories.value = category.strCategory; //set the value
-    newCategories.textContent = category.strCategory;
-    select.appendChild(newCategories);
+  const menuEl = document.getElementById(menuId);
+  
 
-    })
+    // Below we create a empty <li> element and a empty <a> element 
+    // <li><a class="dropdown-item" href="#">Action</a></li>
+    const categoriesLi = document.createElement("li") // Create an empty Li element
+    const catergoriesA = document.createElement("a") // Create an empty A element
+
+    //Now we populate the A element details
+    catergoriesA.className = "dropdown-item"; 
+    catergoriesA.href = "#"; 
+    catergoriesA.textContent = category;
+    //To Do add logic of on select event
+
+    //Append A element to Li element and then append Li element to the Menu
+    categoriesLi.appendChild(catergoriesA); //append it to the dropdown
+    menuEl.appendChild(categoriesLi); //append it to the menu
+
 
 }
 
 
 
 
-const fetchBtn = document.getElementById("fetch");
-if (fetchBtn) fetchBtn.addEventListener("click", sendCategoryRequest);
 
-//------Test API CALL FROM SERVER.JS -------//
+// const fetchBtn = document.getElementById("fetch");
+// if (fetchBtn) fetchBtn.addEventListener("click", sendCategoryRequest);
 
-var searchTerm = document.getElementById("meal-search");
-var searchButton = document.getElementById("search-btn");
-var recipeButton = document.getElementById("search-btn-food");
+// //------Test API CALL FROM SERVER.JS -------//
+
+// var searchTerm = document.getElementById("meal-search");
+// var searchButton = document.getElementById("search-btn");
+// // var recipeButton = document.getElementById("search-btn-food");
+
+//   var recipeBtnEl = document.getElementById("test");
 
 
-recipeButton.addEventListener("click", sendFetchRequest);
-searchButton.addEventListener("click", onClickSearhButton);
 
+// recipeButton.addEventListener("click", sendFetchRequest);
+// searchButton.addEventListener("click", onClickSearhButton);
+// recipeBtnEl.addEventListener("click", showGenre);
 
 const listOfSearches  = []; //creating an empty array to store searches
 
@@ -116,16 +147,16 @@ var list = document.getElementById('searches');
 
 
 
-var select = document.getElementById("selectNumber");
-var options = ["1", "2", "3", "4", "5"];
+// var select = document.getElementById("selectNumber");
+// var options = ["1", "2", "3", "4", "5"];
 
-for(var i = 0; i < options.length; i++) {
-    var opt = options[i];
-    var el = document.createElement("option");
-    el.textContent = opt;
-    el.value = opt;
-    select.appendChild(el);
-}
+// for(var i = 0; i < options.length; i++) {
+//     var opt = options[i];
+//     var el = document.createElement("option");
+//     el.textContent = opt;
+//     el.value = opt;
+//     select.appendChild(el);
+// }
 
 
 
