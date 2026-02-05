@@ -79,7 +79,7 @@ fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
   .then(response => response.json())
     .then(data => {
       console.log('categories:', data);
-      updateDropdown(data); // update the dropdown menu
+     
 
       //Store the category variables
        data.categories.forEach(category => {
@@ -136,6 +136,9 @@ function OnMenuButtonSelect() {
 console.log('Menu item selected:', this.textContent);
 chosenCat = this.textContent;
 
+
+
+
 }
 
 
@@ -184,24 +187,27 @@ function randomRecipe() {
   return;
   }
    recipeList = []; // we clear the recipe list so we can add new chosen recipes in
-  //API call
+  
+   //API call
   
 fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${chosenCat}`)
   .then(response => response.json())
     .then(data => {
       data.meals.forEach(meal => {
-        recipeList.push(meal.strMeal);
-        // console.log('Meal added:', meal.strMeal);
+        recipeList.push(meal.strMeal); // We add our recipes to the recipe list so we can call it in the random generator
+       //console.log('Meal added:', meal.strMeal); 
       });
     })
 
-    recipeList.forEach((element) => 
-      { 
-        console.log(element);
-      });
-
+   randomSelection(); 
 }
 
+
+
+function randomSelection(){
+  var randomElement = recipeList[Math.floor(Math.random() * recipeList.length)]; //getting a random recipe from the list 
+  console.log('Randomly selected recipe:', randomElement.strMeal);
+}
 
 function onClickSearhButton() {
 
