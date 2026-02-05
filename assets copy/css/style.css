@@ -1,0 +1,51 @@
+@charset "UTF-8";
+/* CSS Document */
+body {
+  background-image: url("https://www.smmap.net/wp-content/uploads/2026/02/bgrepeat.jpg");
+  background-repeat: repeat-x;
+	background-color: #040112
+}
+
+/*to create a glowing text with the correct colour and google font for just the header*/
+
+.symbol-font {
+  font-family: "Cinzel", sans-serif;
+  font-optical-sizing: auto;
+	color: #faf7c2;
+  text-align: center;
+  text-shadow: 
+    0 0 5px  #faf7c2,
+    0 0 10px #faf7c2,
+    0 0 20px #e6d97a;
+}
+
+#greeting {
+  width: 100%;
+  height: 60px;                 /* one clean row */
+  display: flex;
+  align-items: center;          /* vertically center text */
+  justify-content: center;      /* horizontally center text */
+
+  font-family: Arial, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+
+  background-color: #f5f5f5;
+  color: #333;
+
+  border-bottom: 1px solid #ddd;
+}
+
+
+p {
+  color: #faf7c2;
+}
+
+
+
+h3 {
+  color: #faf7c2; 
+  text-align: center; 
+}
+
+
