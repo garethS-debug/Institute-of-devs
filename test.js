@@ -4,6 +4,7 @@
 window.onload = function() {
   console.log("Page loaded, sending category request...");
   sendCategoryRequest();
+ // updateMenu();
 };
 
 
@@ -21,7 +22,7 @@ randomBtn.addEventListener("click", randomRecipe)
 
 //Lists to hold the API data
 var recipeList = [];
-var categoriesList = [];
+var categoriesList = []; // Stored Categories
 
 //This holds our category selection
 var chosenCat = null; // Setting a defult value so that it starts empty. We will be adding in the variable later
@@ -75,6 +76,7 @@ fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${searchOutput}`)
 
 function sendCategoryRequest() {
 
+  //-- APi request
 fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
   .then(response => response.json())
     .then(data => {
@@ -103,10 +105,17 @@ function updateDropdown(category, menuId) {
   console.log('Updating dropdown menu...');
 
   //We are adding in security checks just in case the data isnt passed in to the function 
-  if (menuId == null) { console.log('menuId is null, setting default value.'); menuId = 'list1'; return;}
-  if (category == null) { console.log('category is null, exiting function.'); return;}
+  if (menuId == null) { 
+    console.log('menuId is null, setting default value.'); menuId = 'list1'; 
+    return;
+  }
 
-  const menuEl = document.getElementById(menuId);
+  if (category == null) { 
+    console.log('category is null, exiting function.'); 
+    return;
+  }
+
+    const menuEl = document.getElementById(menuId);
   
 
     // Below we create a empty <li> element and a empty <a> element 
@@ -128,6 +137,24 @@ function updateDropdown(category, menuId) {
     categoriesLi.appendChild(catergoriesA); //append it to the dropdown
     menuEl.appendChild(categoriesLi); //append it to the menu
 
+
+}
+
+function updateMenu(){
+
+const ingrediantsEl = document.getElementById('Ingredients');
+const categoryLi = document.createElement("li") // Create an empty Li element
+
+// while (ingrediantsEl.firstChild) ul.removeChild(ul.firstChild);
+categoryLi.innerHTML = ""; // Clear the existing content of the list
+
+var node= document.getElementById("list1-parent");
+while (node.firstChild) {
+    node.removeChild(myNode.firstChild);
+}
+
+var node= document.getElementById("parent");
+node.querySelectorAll('*').forEach(n => n.remove());
 
 }
 
@@ -198,6 +225,7 @@ fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${chosenCat}`)
     .then(data => {
       data.meals.forEach(meal => {
         recipeList.push(meal); // We add our recipes to the recipe list so we can call it in the random generator
+
        //console.log('Meal added:', meal.strMeal); 
       });
         
@@ -209,6 +237,8 @@ fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${chosenCat}`)
     }) // We add this in to ensure the recipe list is fully updated before we call the random generator
     
     
+
+
     recipeList.forEach((element) => 
       {   
 
@@ -220,10 +250,17 @@ fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${chosenCat}`)
 
 
 
+
 function randomSelection(){
-  if (!recipeList.length) return console.warn('recipeList empty'); // Ensuring the recipe list isnt empty
+  if (!recipeList.length) {
+    console.warn('recipeList empty'); // Ensuring the recipe list isnt empty
+    return ;
+  }
+
   const randomElement = recipeList[Math.floor(Math.random() * recipeList.length)];
+
   console.log('Randomly selected recipe:', randomElement.strMeal);
+
   details = fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${randomElement.idMeal}`)
     .then(response => response.json())
     .then(data => {
@@ -233,11 +270,78 @@ function randomSelection(){
       //update the image of the chosen recipe
       const recipeImage = document.getElementById('recipe-image');
       recipeImage.src = data.meals[0].strMealThumb;
+
+      //Update recipe title
+      const recipeTitle = document.getElementById('recipe-title');
+      recipeTitle.textContent = data.meals[0].strMeal;
+
+      //update recipe text
+      const recipeText = document.getElementById('ingredient-text');
+      recipeText.textContent = data.meals[0].strInstructions;
+
+
+      // Update Recipe 
+    const recipeEl = document.getElementById("recipe-parent");
+    const recipeLi = document.createElement("li") // Create an empty Li element
+   
+      
+    //Now we populate the A element details
+    recipeLi.className = "recipe-item"; 
+    recipeLi.textContent = data.meals[0].strIngredient1;
+
+    //List Element for ingrediants
+          const li = document.createElement('li');
+          li.className = 'list-group-item';
+          li.textContent =data.meals[0].strIngredient1;
+          recipeEl.appendChild(li);
+
+          const li2 = document.createElement('li');
+          li2.className = 'list-group-item';
+          li2.textContent =data.meals[0].strIngredient2;
+          recipeEl.appendChild(li2);
+
+          const li3 = document.createElement('li');
+          li3.className = 'list-group-item';
+          li3.textContent =data.meals[0].strIngredient3;
+          recipeEl.appendChild(li3);
+
+          const li4 = document.createElement('li');
+          li4.className = 'list-group-item';
+          li4.textContent =data.meals[0].strIngredient4;
+          recipeEl.appendChild(li4);
+
+          const li5 = document.createElement('li');
+          li5.className = 'list-group-item';
+          li5.textContent =data.meals[0].strIngredient5;
+          recipeEl.appendChild(li5);
+
+                const li6 = document.createElement('li');
+          li6.className = 'list-group-item';
+          li6.textContent =data.meals[0].strIngredient6;
+          recipeEl.appendChild(li6);
+
+                          const li7 = document.createElement('li');
+          li7.className = 'list-group-item';
+          li7.textContent =data.meals[0].strIngredient7;
+          recipeEl.appendChild(li7);
+
+    //To Do add logic of on select event
+    //Append A element to Li element and then append Li element to the Menu
+    // recipeLi.appendChild(recipeA); //append it to the dropdown
+    recipeEl.appendChild(recipeLi); //append it to the menu
+
+      console.log("Recipe Ingredients: " , data.meals[0].strIngredient1);
+
+
+
+      console.log('Meal Details:', data.meals[0].strCategory, data.meals[0].strArea, data.meals[0].strInstructions, data.meals[0].strMealThumb);
+    //Filling in the rest of the details
+
     })  
    
 }
 
-function onClickSearhButton() {
+function onClickSearhButton() {ha
 
     sendCategoryRequest();
   // 4. use the value property of the searchInput to get the search term
