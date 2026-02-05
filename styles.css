@@ -1,0 +1,38 @@
+body {
+  background-image: url("https://www.smmap.net/wp-content/uploads/2026/02/bgrepeat.jpg");
+  background-repeat: repeat-x;
+	background-color: #040112
+}
+
+p {
+  color: #faf7c2;
+}
+
+/* to create a glowing text with the correct colour and google font for just the header */
+.symbol-font {
+  font-family: "Noto Sans Symbols", sans-serif;
+  font-optical-sizing: auto;
+  color: #FAF7C2;
+  text-align: center;
+  text-shadow: 0 0 5px #FAF7C2,
+  0 0 10px #FAF7C2, 0 0 20px #E6D97A;
+}
+
+h1 {
+  color: #faf7c2; 
+  text-align: center; 
+}
+
+h3 {
+  color: #faf7c2; 
+  text-align: center; 
+}
+
+.bottom-left-border {
+  border-radius: 0px 0px 0px 30px;
+}
+
+/* div.greeting {
+    color: #faf7c2;
+} */
+

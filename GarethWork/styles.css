@@ -1,0 +1,19 @@
+body {
+  background-image: url("https://www.smmap.net/wp-content/uploads/2026/02/bgrepeat.jpg");
+  background-repeat: repeat-x;
+	background-color: #040112
+}
+
+p {
+  color: #faf7c2;
+}
+
+h1 {
+  color: #faf7c2; 
+  text-align: center; 
+}
+
+h3 {
+  color: #faf7c2; 
+  text-align: center; 
+}
