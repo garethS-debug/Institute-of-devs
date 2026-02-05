@@ -136,6 +136,9 @@ function OnMenuButtonSelect() {
 console.log('Menu item selected:', this.textContent);
 chosenCat = this.textContent;
 
+//Updaate the menu name to show selected category
+const parentButton = document.getElementById('list1-parent');
+parentButton.textContent = chosenCat;
 
 
 
@@ -194,19 +197,44 @@ fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${chosenCat}`)
   .then(response => response.json())
     .then(data => {
       data.meals.forEach(meal => {
-        recipeList.push(meal.strMeal); // We add our recipes to the recipe list so we can call it in the random generator
+        recipeList.push(meal); // We add our recipes to the recipe list so we can call it in the random generator
        //console.log('Meal added:', meal.strMeal); 
       });
+        
     })
 
-   randomSelection(); 
+    .then(() => {
+
+       randomSelection(); 
+    }) // We add this in to ensure the recipe list is fully updated before we call the random generator
+    
+    
+    recipeList.forEach((element) => 
+      {   
+
+        console.log('Recipe in chosen category:', element);
+      });
+      
+
 }
 
 
 
 function randomSelection(){
-  var randomElement = recipeList[Math.floor(Math.random() * recipeList.length)]; //getting a random recipe from the list 
+  if (!recipeList.length) return console.warn('recipeList empty'); // Ensuring the recipe list isnt empty
+  const randomElement = recipeList[Math.floor(Math.random() * recipeList.length)];
   console.log('Randomly selected recipe:', randomElement.strMeal);
+  details = fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${randomElement.idMeal}`)
+    .then(response => response.json())
+    .then(data => {
+       console.log('Meal Details:', data.meals[0].strCategory, data.meals[0].strArea, data.meals[0].strInstructions, data.meals[0].strMealThumb);
+      // showMealDetails(data.meals[0]);
+
+      //update the image of the chosen recipe
+      const recipeImage = document.getElementById('recipe-image');
+      recipeImage.src = data.meals[0].strMealThumb;
+    })  
+   
 }
 
 function onClickSearhButton() {
