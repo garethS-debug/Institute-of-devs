@@ -8,7 +8,14 @@ window.onload = function() {
 
 
 
-//-- reference to button
+//-- references
+var list = document.getElementById('searches');
+var randomBtn = document.getElementById('Random');
+
+//Event Listeners
+randomBtn.addEventListener("click", randomRecipe)
+
+
 
 //const skillsSelect = document.getElementById("selectNumber");
 
@@ -18,7 +25,7 @@ var categoriesList = [];
 
 //This holds our category selection
 var chosenCat = null; // Setting a defult value so that it starts empty. We will be adding in the variable later
-
+var chosenCatList = []; //creating an empty list of our chosen category. 
 
 function sendFetchRequest() {
 
@@ -45,25 +52,25 @@ fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${searchOutput}`)
 
 }
 
-//jQuery
-// $(function(){
-//   $('#test').text('Testing');
-// });
+// //jQuery
+// // $(function(){
+// //   $('#test').text('Testing');
+// // });
 
-         $(function() {
-            // var availableTutorials  =  [
-            //    "ActionScript",
-            //    "Bootstrap",
-            //    "C",
-            //    "C++",
-            // ];
+//          $(function() {
+//             // var availableTutorials  =  [
+//             //    "ActionScript",
+//             //    "Bootstrap",
+//             //    "C",
+//             //    "C++",
+//             // ];
 
 
 
-            $( "#automplete-1" ).autocomplete({
-               source:  categoriesList
-            });
-         });
+//             $( "#automplete-1" ).autocomplete({
+//                source:  categoriesList
+//             });
+//          });
 
 
 function sendCategoryRequest() {
@@ -113,6 +120,10 @@ function updateDropdown(category, menuId) {
     catergoriesA.textContent = category;
     //To Do add logic of on select event
 
+  //Adding a onclick event
+  catergoriesA.addEventListener("click", OnMenuButtonSelect);
+
+
     //Append A element to Li element and then append Li element to the Menu
     categoriesLi.appendChild(catergoriesA); //append it to the dropdown
     menuEl.appendChild(categoriesLi); //append it to the menu
@@ -121,7 +132,11 @@ function updateDropdown(category, menuId) {
 }
 
 
+function OnMenuButtonSelect() {
+console.log('Menu item selected:', this.textContent);
+chosenCat = this.textContent;
 
+}
 
 
 // const fetchBtn = document.getElementById("fetch");
@@ -143,7 +158,7 @@ function updateDropdown(category, menuId) {
 
 const listOfSearches  = []; //creating an empty array to store searches
 
-var list = document.getElementById('searches');
+
 
 
 
@@ -159,7 +174,33 @@ var list = document.getElementById('searches');
 // }
 
 
+function randomRecipe() {
 
+  console.log('Random recipe button clicked');
+
+  //Here we are checking if the user has selected a category (referencing our temp variable at the top of the page)
+  if (chosenCat == null) {
+  alert("Please select a category first!");
+  return;
+  }
+   recipeList = []; // we clear the recipe list so we can add new chosen recipes in
+  //API call
+  
+fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${chosenCat}`)
+  .then(response => response.json())
+    .then(data => {
+      data.meals.forEach(meal => {
+        recipeList.push(meal.strMeal);
+        // console.log('Meal added:', meal.strMeal);
+      });
+    })
+
+    recipeList.forEach((element) => 
+      { 
+        console.log(element);
+      });
+
+}
 
 
 function onClickSearhButton() {
