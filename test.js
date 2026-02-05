@@ -13,7 +13,14 @@ window.onload = function() {
 var quoteList = [
 "I love deadlines. I love the whooshing noise they make as they go by.",
 "The story so far: \n In the beginning the Universe was created. \nThis has made a lot of people very angry and been widely regarded as a bad move.",
-
+"I refuse to answer that question on the grounds that I don't know the answer",
+"Don't Panic.",
+"A learning experience is one of those things that says, 'You know that thing you just did? Don't do that.",
+"Id far rather be happy than right any day.",
+"I’d far rather be happy than right any day.",
+"For a moment, nothing happened. Then, after a second or so, nothing continued to happen.",
+"You live and learn. At any rate, you live.",
+"I'd take the awe of understanding over the awe of ignorance any day."
 
   
 ];
@@ -294,11 +301,14 @@ function randomSelection(){
     const recipeEl = document.getElementById("recipe-parent");
     const recipeLi = document.createElement("li") // Create an empty Li element
    
-      
+      if (recipeEl) recipeEl.replaceChildren();
     //Now we populate the A element details
     recipeLi.className = "recipe-item"; 
     recipeLi.textContent = data.meals[0].strIngredient1;
 
+
+
+    
     //List Element for ingrediants
           const li = document.createElement('li');
           li.className = 'list-group-item';
