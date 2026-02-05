@@ -9,6 +9,16 @@ window.onload = function() {
 
 
 
+//Quote References
+var quoteList = [
+"I love deadlines. I love the whooshing noise they make as they go by.",
+"The story so far: \n In the beginning the Universe was created. \nThis has made a lot of people very angry and been widely regarded as a bad move.",
+
+
+  
+];
+
+
 //-- references
 var list = document.getElementById('searches');
 var randomBtn = document.getElementById('Random');
@@ -315,15 +325,36 @@ function randomSelection(){
           li5.textContent =data.meals[0].strIngredient5;
           recipeEl.appendChild(li5);
 
-                const li6 = document.createElement('li');
+          const li6 = document.createElement('li');
           li6.className = 'list-group-item';
           li6.textContent =data.meals[0].strIngredient6;
           recipeEl.appendChild(li6);
 
-                          const li7 = document.createElement('li');
+          const li7 = document.createElement('li');
           li7.className = 'list-group-item';
           li7.textContent =data.meals[0].strIngredient7;
           recipeEl.appendChild(li7);
+
+
+          const li8 = document.createElement('li');
+          li8.className = 'list-group-item';
+          li8.textContent =data.meals[0].strIngredient8;
+          recipeEl.appendChild(li8);
+
+          const li9 = document.createElement('li');
+          li9.className = 'list-group-item';
+          li9.textContent =data.meals[0].strIngredient9;
+          recipeEl.appendChild(li9);
+
+          const li10 = document.createElement('li');
+          li10.className = 'list-group-item';
+          li10.textContent =data.meals[0].strIngredient10;
+          recipeEl.appendChild(li10);
+
+          const li11 = document.createElement('li');
+          li11.className = 'list-group-item';
+          li11.textContent =data.meals[0].strIngredient11;
+          recipeEl.appendChild(li11);
 
     //To Do add logic of on select event
     //Append A element to Li element and then append Li element to the Menu
@@ -332,7 +363,7 @@ function randomSelection(){
 
       console.log("Recipe Ingredients: " , data.meals[0].strIngredient1);
 
-
+      newQuote();
 
       console.log('Meal Details:', data.meals[0].strCategory, data.meals[0].strArea, data.meals[0].strInstructions, data.meals[0].strMealThumb);
     //Filling in the rest of the details
@@ -341,6 +372,16 @@ function randomSelection(){
    
 }
 
+function newQuote() {
+
+  const randomQuote = quoteList[Math.floor(Math.random() * quoteList.length)];
+  const quoteTextEl = document.getElementById('quote-text');
+  quoteTextEl.textContent = randomQuote;
+
+  const quoteAuthorEl = document.getElementById('quote-author');
+  quoteAuthorEl.textContent = " - " + "Douglas Adams";
+  
+}
 function onClickSearhButton() {ha
 
     sendCategoryRequest();
