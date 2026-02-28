@@ -1,7 +1,7 @@
 body {
   background-image: url("https://www.smmap.net/wp-content/uploads/2026/02/bgrepeat.jpg");
   background-repeat: repeat-x;
-	background-color: #040112
+	background-color: #040112;
 }
 
 p {
@@ -20,19 +20,32 @@ p {
 
 h1 {
   color: #faf7c2; 
-  text-align: center; 
+  text-align: center;
+  margin-top: 10px;
 }
 
-h3 {
+h3,
+h4 {
   color: #faf7c2; 
   text-align: center; 
 }
 
-.bottom-left-border {
-  border-radius: 0px 0px 0px 30px;
+.btn-primary,
+.btn-secondary {
+  background-color: #040112;
+  color:#faf7c2;
+  font-size: 18px;
+  border-radius: 15px;
+  border: 1px solid #faf7c2;
 }
 
-/* div.greeting {
-    color: #faf7c2;
-} */
+.btn-primary:hover,
+.btn-secondary:hover {
+  background-color:#FAF7C2;
+  color:#040112;
+}
 
+.border,
+.border-start {
+  border-color: #faf7c2 !important; 
+}
