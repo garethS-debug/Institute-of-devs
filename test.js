@@ -13,6 +13,7 @@ function sendFetchRequest() {
   const selectedText = skillsSelect.options[skillsSelect.selectedIndex].text;
 
   console.log('Selected category:', selectedText, searchOutput);
+  sendCategorySearch(selectedText); 
 
 }
 
@@ -23,6 +24,19 @@ fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
     .then(data => {
       console.log('categories:', data);
       updateDropdown(data); // update the dropdown menu
+    })
+    
+ 
+}
+
+
+function sendCategorySearch(category) {
+
+fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+  .then(response => response.json())
+    .then(data => {
+      console.log('Search results:', data);
+    
     })
     
  
