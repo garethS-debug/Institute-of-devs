@@ -1,7 +1,8 @@
 
 
 const skillsSelect = document.getElementById("selectNumber");
-
+var recipeList = [];
+var categoriesList = [];
 
 function sendFetchRequest() {
 
@@ -15,7 +16,40 @@ function sendFetchRequest() {
   console.log('Selected category:', selectedText, searchOutput);
   sendCategorySearch(selectedText); 
 
+fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${searchOutput}`)
+  .then(response => response.json())
+    .then(data => {
+      console.log('categories:', data);
+      recipeList = [];
+      data.meals.forEach(meal => {
+        recipeList.push(meal.strMeal);
+        // console.log('Meal added:', meal.strMeal);
+      });
+    })
+
+
 }
+
+
+         $(function() {
+            // var availableTutorials  =  [
+            //    "ActionScript",
+            //    "Bootstrap",
+            //    "C",
+            //    "C++",
+            // ];
+
+
+
+            $( "#automplete-1" ).autocomplete({
+               source:  categoriesList
+            });
+         });
+
+window.onload = function() {
+  console.log("Page loaded, sending category request...");
+  sendCategoryRequest();
+};
 
 function sendCategoryRequest() {
 
@@ -24,6 +58,14 @@ fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
     .then(data => {
       console.log('categories:', data);
       updateDropdown(data); // update the dropdown menu
+
+      //Store the category variables
+       data.categories.forEach(category => {
+        categoriesList.push(category.strCategory);
+        // console.log('Category added:', category.strCategory);
+      })
+
+
     })
     
  
@@ -142,3 +184,7 @@ function refreshUI(searches) {
   list.appendChild(ulEl);
 
 }
+
+
+
+
